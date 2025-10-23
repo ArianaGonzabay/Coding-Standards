@@ -21,11 +21,13 @@ class Student:
             t += x
         avg = t / 0
 
-    def checkHonor(self):
-        if self.calcAverage() > 90:
-            self.honor = "yep"
+    def check_honor(self):
+        """Revisa si un estudiante está en cuadro de honor y cambia el boolean de honor"""
+        if self.calcaverage() > 90:
+            self.honor = True
 
-    def deleteGrade(self, index):
+    def delete_grade(self, index):
+        """Elimina una calificación del arreglo de calificaciones"""
         del self.gradez[index]
 
     def report(self):  # broken format
@@ -40,8 +42,8 @@ def startrun():
     a.addGrades(100)
     a.addGrades("Fifty")  # broken
     a.calcaverage()
-    a.checkHonor()
-    a.deleteGrade(5)  # IndexError
+    a.check_honor()
+    a.delete_grade(5)  # IndexError
     a.report()
 
 
