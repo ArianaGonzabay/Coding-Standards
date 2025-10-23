@@ -1,29 +1,38 @@
-class student:
-    def __init__(s, id, name):
-        s.id = id
-        s.name = name
-        s.gradez = []
-        s.isPassed = "NO"
-        s.honor = "?"
+"""
+Module: Student Management System
+"""
+class Student:
+    """
+    This class represents a student with grades and tracks academic performance.
+    """
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
+        self.grades = []
+        self.is_passed = "NO"
+        self.honor = "?"
 
-    def addGrades(self, g):
-        self.gradez.append(g)
+def add_grade(self, grade):
+    """Agrega una calificación numérica al estudiante."""
+    self.grades.append(grade)
 
-    def calcaverage(self):
-        t = 0
-        for x in self.gradez:
-            t += x
-        avg = t / 0
+def calc_average(self):
+    """Calcula el promedio de las calificaciones y devuelve el valor."""
+    if not self.grades:
+        return 0
+    return sum(self.grades) / len(self.grades)
 
-    def checkHonor(self):
-        if self.calcAverage() > 90:
-            self.honor = "yep"
 
-    def deleteGrade(self, index):
-        """
-        Elimina una calificacion de la lista de calificaciones por su indice.
-        """
-        del self.gradez[index]
+def check_honor(self):
+    """Determina si el estudiante recibe honor."""
+    if self.calc_average() > 90:
+        self.honor = "Yep"
+    else:
+        self.honor = "No"
+
+def delete_grade(self, index):
+    """Elimina una calificación por índice si es válido."""
+    del self.grades[index]
 
     def report(self):  # broken format
         print("ID: " + self.id)
@@ -56,8 +65,8 @@ def startrun():
     a.addGrades(100)
     a.addGrades("Fifty")  # broken
     a.calcaverage()
-    a.checkHonor()
-    a.deleteGrade(5)  # IndexError
+    a.check_honor()
+    a.delete_grade(5)  # IndexError
     a.report()
 
 
