@@ -1,3 +1,6 @@
+"""
+MODULE: Student Managment System
+"""
 class Student:
     """
     This class represents a student with grades and tracks academic performance.
@@ -78,6 +81,7 @@ class Student:
 # EJEMPLO DE USO
 # ------------------------------
 def startrun():
+    """Ejecuta un caso de prueba del sistema de gestión de estudiantes."""
     a = Student("x001", "Juan Perez")
     a.add_grade(100)
     a.add_grade("Fifty")   # Se rechazará
