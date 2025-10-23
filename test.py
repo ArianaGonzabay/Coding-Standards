@@ -8,32 +8,36 @@ class Student:
     def __init__(self, id, name):
         self.id = id
         self.name = name
-        self.gradez = []
+        self.grades = []
         self.is_passed = "NO"
         self.honor = "?"
 
-    def addGrades(self, g):
-        self.gradez.append(g)
+def add_grade(self, grade):
+    """Agrega una calificación numérica al estudiante."""
+    self.grades.append(grade)
 
-    def calcaverage(self):
-        t = 0
-        for x in self.gradez:
-            t += x
-        avg = t / 0
+def calc_average(self):
+    """Calcula el promedio de las calificaciones y devuelve el valor."""
+    if not self.grades:
+        return 0
+    return sum(self.grades) / len(self.grades)
 
-    def check_honor(self):
-        """Revisa si un estudiante está en cuadro de honor y cambia el boolean de honor"""
-        if self.calcaverage() > 90:
-            self.honor = True
 
-    def delete_grade(self, index):
-        """Elimina una calificación del arreglo de calificaciones"""
-        del self.gradez[index]
+def check_honor(self):
+    """Determina si el estudiante recibe honor."""
+    if self.calc_average() > 90:
+        self.honor = "Yep"
+    else:
+        self.honor = "No"
+
+def delete_grade(self, index):
+    """Elimina una calificación por índice si es válido."""
+    del self.grades[index]
 
     def report(self):  # broken format
         print("ID: " + self.id)
         print("Name is: " + self.name)
-        print("Grades Count: " + len(self.gradez))
+        print("Grades Count: " + len(self.grades))
         print("Final Grade = " + self.letter)
 
 
