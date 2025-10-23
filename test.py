@@ -1,72 +1,90 @@
-"""
-Module: Student Management System
-"""
 class Student:
     """
     This class represents a student with grades and tracks academic performance.
     """
-    def __init__(self, id, name):
-        self.id = id
+
+    def __init__(self, student_id, name):
+        if not student_id or not name:
+            raise ValueError("ID y nombre no pueden estar vacíos.")
+        self.id = student_id
         self.name = name
         self.grades = []
         self.is_passed = "NO"
-        self.honor = "?"
+        self.honor = "NO"
+        self.average = 0
+        self.letter = "F"
 
-def add_grade(self, grade):
-    """Agrega una calificación numérica al estudiante."""
-    self.grades.append(grade)
-
-def calc_average(self):
-    """Calcula el promedio de las calificaciones y devuelve el valor."""
-    if not self.grades:
-        return 0
-    return sum(self.grades) / len(self.grades)
-
-
-def check_honor(self):
-    """Determina si el estudiante recibe honor."""
-    if self.calc_average() > 90:
-        self.honor = "Yep"
-    else:
-        self.honor = "No"
-
-def delete_grade(self, index):
-    """Elimina una calificación por índice si es válido."""
-    del self.grades[index]
-
-    def report(self):  # broken format
-        print("ID: " + self.id)
-        print("Name is: " + self.name)
-        print("Grades Count: " + len(self.gradez))
-        print("Final Grade = " + self.get_letter_grade())
-
-    def get_letter_grade(self):
-        """Calcula y devuelve la calificación con letra del estudiante."""
-        avg = self.calc_average()
-        if avg >= 90:
-            return "A"
-        elif avg >= 80:
-            return "B"
-        elif avg >= 70:
-            return "C"
-        elif avg >= 60:
-            return "D"
-        elif avg >= 50:
-            return "E"
+    def add_grade(self, grade):
+        """Agrega una calificación numérica válida (0-100)."""
+        try:
+            grade = float(grade)
+        except ValueError:
+            print(f"Error: la calificación '{grade}' no es un número válido.")
+            return
+        if 0 <= grade <= 100:
+            self.grades.append(grade)
         else:
-            return "F"
+            print(f"Error: la calificación {grade} debe estar entre 0 y 100.")
+
+    def calc_average(self):
+        """Calcula el promedio y actualiza letra, Pass/Fail y honor roll."""
+        if not self.grades:
+            self.average = 0
+        else:
+            self.average = sum(self.grades) / len(self.grades)
+        # Determinar letra
+        if self.average >= 90:
+            self.letter = "A"
+        elif self.average >= 80:
+            self.letter = "B"
+        elif self.average >= 70:
+            self.letter = "C"
+        elif self.average >= 60:
+            self.letter = "D"
+        else:
+            self.letter = "F"
+        # Pass / Fail
+        self.is_passed = "YES" if self.average >= 60 else "NO"
+        # Honor Roll
+        self.honor = "YES" if self.average >= 90 else "NO"
+
+    def delete_grade_by_index(self, index):
+        """Elimina una calificación por índice si es válido."""
+        if 0 <= index < len(self.grades):
+            del self.grades[index]
+        else:
+            print(f"Error: índice {index} fuera de rango.")
+
+    def delete_grade_by_value(self, value):
+        """Elimina la primera ocurrencia de una calificación por valor."""
+        if value in self.grades:
+            self.grades.remove(value)
+        else:
+            print(f"Error: la calificación {value} no se encuentra.")
+
+    def report(self):
+        """Genera un reporte formateado del estudiante."""
+        print(f"ID: {self.id}")
+        print(f"Name: {self.name}")
+        print(f"Grades Count: {len(self.grades)}")
+        print(f"Grades: {self.grades}")
+        print(f"Average Grade: {self.average:.2f}")
+        print(f"Letter Grade: {self.letter}")
+        print(f"Passed: {self.is_passed}")
+        print(f"Honor Roll: {self.honor}")
 
 
+# ------------------------------
+# EJEMPLO DE USO
+# ------------------------------
 def startrun():
-    """
-    Ejecuta un caso de prueba del sistema de gestión de estudiantes
-    """
-    a = student("x", "")
-    a.addGrades(100)
-    a.addGrades("Fifty")  # broken
-    a.calcaverage()
-    a.check_honor()
-    a.delete_grade(5)  # IndexError
+    a = Student("x001", "Juan Perez")
+    a.add_grade(100)
+    a.add_grade("Fifty")   # Se rechazará
+    a.add_grade(85)
+    a.calc_average()
+    a.delete_grade_by_index(5)  # Fuera de rango → mensaje de error
+    a.delete_grade_by_value(200)  # No existe → mensaje de error
     a.report()
 
 
